@@ -44,9 +44,9 @@ class HomeScreen extends StatelessWidget {
 
   Widget menu(context) {
     List listTabs = <Widget>[
-      const Tab(icon: Icon(Icons.home_max_outlined)),
-      const Tab(icon: Icon(Icons.movie_filter)),
-      const Tab(icon: Icon(Icons.book_online_outlined))
+      const Tab(icon: Icon(Icons.house_rounded) , text: 'Home', iconMargin:  EdgeInsets.only(bottom: 0) , height: 50,  ),
+     const Tab(icon: Icon(Icons.movie_rounded) , text: 'Movies', iconMargin:  EdgeInsets.only(bottom: 0) , height: 50,  ),
+      const Tab(icon: Icon(Icons.library_books_rounded) , text: 'Manga', iconMargin:  EdgeInsets.only(bottom: 0) , height: 50,  ),
     ];
 
     return Container(

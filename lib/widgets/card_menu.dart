@@ -20,7 +20,7 @@ class CustomCardMenu extends StatelessWidget {
             .antiAlias, //En caso de que el hijo no respete la propiedad del padre,cortar lo que salga
         // por ejemplo la imagen se sale y no permite la forma redondeada con esto se corta y se aplica la propieda del padre en este caso la carta que siempre tiene bordes
         elevation: 10,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
 
         shadowColor: Colors.indigo.withOpacity(0.5),
         child: Column(
@@ -28,7 +28,7 @@ class CustomCardMenu extends StatelessWidget {
             FadeInImage(
                 placeholder: const AssetImage('assets/loading.gif'),
                 // width: double.infinity,
-                width: 140,
+                width: 130,
                 fadeInDuration: const Duration(milliseconds: 400),
                 height: 100,
                 fit: BoxFit.fill,
