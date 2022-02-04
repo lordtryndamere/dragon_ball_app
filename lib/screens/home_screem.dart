@@ -37,16 +37,39 @@ class HomeScreen extends StatelessWidget {
               backgroundColor: Colors.orange[900]),
           bottomNavigationBar: menu(context),
           body: const TabBarView(
-            children: [MenuRender(), MoviesScreen(), MangaScreen()],
+            children: [
+              MenuViewScreen(
+                route: 'home',
+                title: 'Home',
+                description: 'text',
+              ),
+              MoviesScreen(),
+              MangaScreen()
+            ],
           )),
     );
   }
 
   Widget menu(context) {
     List listTabs = <Widget>[
-      const Tab(icon: Icon(Icons.house_rounded) , text: 'Home', iconMargin:  EdgeInsets.only(bottom: 0) , height: 50,  ),
-     const Tab(icon: Icon(Icons.movie_rounded) , text: 'Movies', iconMargin:  EdgeInsets.only(bottom: 0) , height: 50,  ),
-      const Tab(icon: Icon(Icons.library_books_rounded) , text: 'Manga', iconMargin:  EdgeInsets.only(bottom: 0) , height: 50,  ),
+      const Tab(
+        icon: Icon(Icons.house_rounded),
+        text: 'Home',
+        iconMargin: EdgeInsets.only(bottom: 0),
+        height: 50,
+      ),
+      const Tab(
+        icon: Icon(Icons.movie_rounded),
+        text: 'Movies',
+        iconMargin: EdgeInsets.only(bottom: 0),
+        height: 50,
+      ),
+      const Tab(
+        icon: Icon(Icons.library_books_rounded),
+        text: 'Manga',
+        iconMargin: EdgeInsets.only(bottom: 0),
+        height: 50,
+      ),
     ];
 
     return Container(
