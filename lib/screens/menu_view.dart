@@ -1,66 +1,117 @@
+import 'dart:math';
+
+import 'package:dragon_ball_app/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
 class MenuViewScreen extends StatelessWidget {
-  const MenuViewScreen(
-      {Key? key,
-      required this.title,
-      required this.description,
-      required this.route})
-      : super(key: key);
-  final String title;
-  final String description;
-  final String route;
+  const MenuViewScreen({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      color: Colors.orange[200],
-      width: double.infinity,
-      height: size.height * 1,
-      child: ListView.builder(
-        itemBuilder: (context, index) => Padding(
-          padding:
-              const EdgeInsets.only(bottom: 2, top: 10, left: 10, right: 10),
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                height: size.height * 0.15,
-                color: Colors.orange[200],
-                child: Swiper(
-                  autoplay: true,
-                  autoplayDelay: 4000,
-                  autoplayDisableOnInteraction: true,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, 'detail',
-                          arguments: 'movie-screen'),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5, right: 5),
-                        child: ClipRRect(
-                          //Me permite hacer un border radius
-                          borderRadius: BorderRadius.circular(10),
-                          child: const FadeInImage(
-                            fit: BoxFit.cover,
-                            placeholder: AssetImage('assets/loading.gif'),
-                            image: NetworkImage(
-                                'https://c4.wallpaperflare.com/wallpaper/214/442/543/digital-art-son-goku-dragon-ball-dragon-ball-z-island-hd-wallpaper-preview.jpg'),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  itemHeight: size.height * 0.2,
-                  layout: SwiperLayout.DEFAULT,
-                  itemCount: 10,
-                ),
-              )
-            ],
-          ),
+    return Center(
+      child: Container(
+        color: Colors.orange[100],
+        width: double.infinity,
+        height: size.height * 1,
+        child: ListView.builder(
+          itemBuilder: (context, index) => MenuSlider(
+              size: size,
+              route: AppRoute.menuOptions[index].route,
+              name: AppRoute.menuOptions[index].name,
+              urlImage: AppRoute.menuOptions[index].urlImage,
+              duration: AppRoute.menuOptions[index].duration),
+          itemCount: AppRoute.menuOptions.length,
         ),
-        itemCount: 4,
+      ),
+    );
+  }
+}
+
+class MenuSlider extends StatelessWidget {
+  const MenuSlider({
+    Key? key,
+    required this.size,
+    required this.route,
+    required this.urlImage,
+    required this.name,
+    required this.duration,
+  }) : super(key: key);
+
+  final Size size;
+  final String route;
+  final String urlImage;
+  final String name;
+  final int duration;
+  @override
+  Widget build(BuildContext context) {
+    final random = Random();
+
+    return GestureDetector(
+      onTap: () =>
+          Navigator.pushNamed(context, route, arguments: 'movie-screen'),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 2, top: 20, left: 5, right: 5),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: size.height * 0.16,
+              color: Colors.orange[100],
+              child: Swiper(
+                autoplay: true,
+                autoplayDelay: random.nextInt(duration) + 2000,
+                autoplayDisableOnInteraction: true,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    child: ClipRRect(
+                      //Me permite hacer un border radius
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(urlImage),
+                                  opacity: 1)),
+                          child: const Center(child: SizedBox())),
+                    ),
+                  );
+                },
+                itemHeight: size.height * 0.2,
+                layout: SwiperLayout.DEFAULT,
+                itemCount: 1,
+              ),
+            ),
+            Positioned(
+                child: Opacity(
+              opacity: 0.3,
+              child: Image(
+                image: const AssetImage('assets/iconZ.png'),
+                width: size.width * 0.2,
+                height: size.height * 0.1,
+              ),
+            )),
+            Positioned(
+              child: Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  letterSpacing: 5.0,
+                  fontFamily: 'Bangers',
+                  fontSize: (size.width * 0.1).toDouble(),
+                  color: Colors.white.withOpacity(0.9),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

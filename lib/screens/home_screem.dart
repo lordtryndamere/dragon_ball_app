@@ -16,36 +16,28 @@ class HomeScreen extends StatelessWidget {
               title: Padding(
                 padding: const EdgeInsets.only(left: 1),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    const Image(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Image(
                       height: 50,
                       fit: BoxFit.cover,
                       image: AssetImage('assets/logo_dragon_ball.png'),
                     ),
-                    Builder(
-                        builder: (context) => TextButton(
-                            onPressed: () => Scaffold.of(context).openDrawer(),
-                            child: Icon(
-                              Icons.menu,
-                              color: Colors.yellow[600],
-                              size: 30,
-                            )))
+                    // Builder(
+                    //     builder: (context) => TextButton(
+                    //         onPressed: () => Scaffold.of(context).openDrawer(),
+                    //         child: Icon(
+                    //           Icons.menu,
+                    //           color: Colors.yellow[600],
+                    //           size: 30,
+                    //         )))
                   ],
                 ),
               ),
               backgroundColor: Colors.orange[900]),
           bottomNavigationBar: menu(context),
           body: const TabBarView(
-            children: [
-              MenuViewScreen(
-                route: 'home',
-                title: 'Home',
-                description: 'text',
-              ),
-              MoviesScreen(),
-              MangaScreen()
-            ],
+            children: [MenuViewScreen(), MoviesScreen(), MangaScreen()],
           )),
     );
   }
