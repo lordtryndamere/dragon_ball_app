@@ -1,9 +1,6 @@
 import 'package:dragon_ball_app/screens/screens.dart';
 import 'package:dragon_ball_app/widgets/widgets.dart';
-
-import 'package:motion_tab_bar_v2/motion-badge.widget.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
-import 'package:motion_tab_bar_v2/motion-tab-item.dart';
 
 import 'package:flutter/material.dart';
 
@@ -38,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-          drawer: const CustomDrawerNavigator(),
+          //   drawer: const CustomDrawerNavigator(),
           appBar: AppBar(
               automaticallyImplyLeading: false,
               elevation: 2,
