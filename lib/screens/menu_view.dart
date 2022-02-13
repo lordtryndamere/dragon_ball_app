@@ -70,18 +70,16 @@ class MenuSlider extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(left: 5, right: 5),
                     child: ClipRRect(
-                      //Me permite hacer un border radius
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(urlImage),
-                                  opacity: 1)),
-                          child: const Center(child: SizedBox())),
-                    ),
+                        //Me permite hacer un border radius
+                        borderRadius: BorderRadius.circular(10),
+                        child: Opacity(
+                          opacity: 1,
+                          child: FadeInImage(
+                            image: NetworkImage(urlImage),
+                            placeholder: const AssetImage('assets/loading.gif'),
+                            fit: BoxFit.cover,
+                          ),
+                        )),
                   );
                 },
                 itemHeight: size.height * 0.2,

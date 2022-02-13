@@ -1,19 +1,19 @@
+import 'package:dragon_ball_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class MangaScreen extends StatelessWidget {
-  const MangaScreen({Key? key}) : super(key: key);
-
+  const MangaScreen({Key? key, this.isTab = false}) : super(key: key);
+  final bool isTab;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.colorBurn),
-                fit: BoxFit.fill,
-                opacity: 0.7,
-                image: AssetImage('assets/definitive.gif'))),
-        child: Text('Manga'));
+    return Scaffold(
+      backgroundColor: Colors.orange[100],
+      appBar: isTab
+          ? null
+          : AppBar(
+              automaticallyImplyLeading: false,
+              title: const CustomLayoutAppBar(),
+            ),
+    );
   }
 }

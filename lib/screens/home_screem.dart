@@ -1,7 +1,6 @@
 import 'package:dragon_ball_app/screens/screens.dart';
 import 'package:dragon_ball_app/widgets/widgets.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
-
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   TabController? _tabController;
+  final controller = ScrollController();
 
   @override
   void initState() {
@@ -37,30 +37,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Scaffold(
           //   drawer: const CustomDrawerNavigator(),
           appBar: AppBar(
-              automaticallyImplyLeading: false,
-              elevation: 2,
-              title: Padding(
-                padding: const EdgeInsets.only(left: 1),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Image(
-                      height: 50,
-                      fit: BoxFit.cover,
-                      image: AssetImage('assets/logo_dragon_ball.png'),
-                    ),
-                    // Builder(
-                    //     builder: (context) => TextButton(
-                    //         onPressed: () => Scaffold.of(context).openDrawer(),
-                    //         child: Icon(
-                    //           Icons.menu,
-                    //           color: Colors.yellow[600],
-                    //           size: 30,
-                    //         )))
-                  ],
-                ),
-              ),
-              backgroundColor: Colors.orange[900]),
+            automaticallyImplyLeading: false,
+            title: const CustomLayoutAppBar(),
+          ),
           bottomNavigationBar: MotionTabBar(
             initialSelectedTab: "Home",
             useSafeArea: true, // default: true, apply safe area wrapper
@@ -71,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               Icons.book_outlined
             ],
             tabSize: 40,
-            tabBarHeight: 50,
+            tabBarHeight: 45,
             textStyle: const TextStyle(
               fontSize: 13,
               color: Colors.yellow,
@@ -92,7 +71,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           body: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
             controller: _tabController,
-            children: const [MenuViewScreen(), MoviesScreen(), MangaScreen()],
+            children: const [
+              MenuViewScreen(),
+              MoviesScreen(
+                isTab: true,
+              ),
+              MangaScreen(isTab: true)
+            ],
           )),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:dragon_ball_app/router/app_router.dart';
+import 'package:dragon_ball_app/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Dragon Ball App',
       initialRoute: AppRoute.initalRoute,
       routes: AppRoute.getAppRoutes(),
+      theme: AppTheme.lighTheme,
       onGenerateRoute: (settings) => AppRoute.onGenerateRoute(settings),
     );
   }
