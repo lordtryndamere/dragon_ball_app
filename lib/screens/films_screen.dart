@@ -14,6 +14,11 @@ class MoviesScreen extends StatelessWidget {
         child: CustomScrollView(slivers: [
           if (!isTab)
             const SliverAppBar(
+              actions: [
+                Padding(
+                    padding: EdgeInsets.only(right: 15),
+                    child: Icon(Icons.search))
+              ],
               pinned: false,
               floating: false,
               title: CustomLayoutAppBar(),
@@ -59,7 +64,7 @@ class _MovieSlider extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w900,
-                fontSize: size.height * 0.1 - 68)),
+                fontSize: size.height * 0.1 - 65)),
         const SizedBox(
           height: 8,
         ),

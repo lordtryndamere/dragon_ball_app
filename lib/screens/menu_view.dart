@@ -14,7 +14,9 @@ class MenuViewScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Center(
       child: Container(
-        color: Colors.orange[100],
+        decoration: BoxDecoration(
+          color: Colors.orange[100],
+        ),
         width: double.infinity,
         height: size.height * 1,
         child: ListView.builder(
