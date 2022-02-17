@@ -42,15 +42,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           bottomNavigationBar: MotionTabBar(
             initialSelectedTab: "Home",
-            useSafeArea: true, // default: true, apply safe area wrapper
+            useSafeArea: false, // default: true, apply safe area wrapper
             labels: const ["Home", 'Movies', 'Manga'],
             icons: const [
               Icons.home,
               Icons.movie_outlined,
               Icons.book_outlined
             ],
-            tabSize: 40,
-            tabBarHeight: 45,
+            tabSize: 35,
+            tabBarHeight: 50,
             textStyle: const TextStyle(
               fontSize: 13,
               color: Colors.yellow,

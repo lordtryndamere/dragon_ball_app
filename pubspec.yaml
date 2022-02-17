@@ -38,6 +38,10 @@ dependencies:
   animated_splash_screen: ^1.1.0
   card_swiper: ^2.0.1
   motion_tab_bar_v2: ^0.2.5
+  http: ^0.13.4
+  flutter_secure_storage: ^5.0.2
+  provider: ^6.0.2
+  animate_do:
   
 
 dev_dependencies:
