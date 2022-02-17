@@ -90,11 +90,21 @@ class _MovieSlider extends StatelessWidget {
       width: double.infinity,
       height: size.height * 0.3 - 18,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(category.name,
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: size.height * 0.1 - 65)),
+        Row(
+          children: [
+            Image(
+                image: const AssetImage('assets/icon_ball.png'),
+                height: size.height * 0.1 - 62),
+            const SizedBox(width: 15),
+            Text(category.name,
+                style: TextStyle(
+                    //backgroundColor: Colors.white,
+                    //  background: Paint()..color = Colors.orange[900]!,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    fontSize: size.height * 0.1 - 63)),
+          ],
+        ),
         const SizedBox(
           height: 8,
         ),
@@ -137,17 +147,22 @@ class _CustomMoviePoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    movie.heroId = 'movie-slider-${movie.name}';
     return GestureDetector(
-      onTap: () {},
+      onTap: () =>
+          Navigator.pushNamed(context, 'movies-detail', arguments: movie),
       child: Container(
         margin: const EdgeInsets.only(right: 10, bottom: 10),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: FadeInImage(
-            image: NetworkImage(movie.posterImg),
-            placeholder: const AssetImage('assets/loading.gif'),
-            width: size.width * 0.3,
-            fit: BoxFit.cover,
+          child: Hero(
+            tag: movie.heroId!,
+            child: FadeInImage(
+              image: NetworkImage(movie.posterImg),
+              placeholder: const AssetImage('assets/loading.gif'),
+              width: size.width * 0.3,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
@@ -183,7 +198,8 @@ class _CustomMovieSwiper extends StatelessWidget {
           final movie = movies[index];
           movie.heroId = 'swiper-${movie.name}';
           return GestureDetector(
-            //   onTap: () => Navigator.pushNamed(context, routeName),
+            onTap: () =>
+                Navigator.pushNamed(context, 'movies-detail', arguments: movie),
             child: Hero(
               tag: movie.heroId!,
               child: ClipRRect(

@@ -43,7 +43,8 @@ class AppRoute {
       initalRoute: (BuildContext context) => const HomeScreen(),
     };
     appRoutes.addAll({
-      'character-detail': (BuildContext context) => const CharacterScreen()
+      'character-detail': (BuildContext context) => const CharacterScreen(),
+      'movies-detail': (BuildContext context) => const DetailsFilmsScreen(),
     });
     for (final option in menuOptions) {
       appRoutes.addAll({option.route: (BuildContext context) => option.screen});

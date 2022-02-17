@@ -51,12 +51,11 @@ class MoviesProvider extends ChangeNotifier {
     return response.body;
   }
 
-  Future searchMovies(String query) async {
+  Future<List<Movie>> searchMovies(String query) async {
     final response = await _getJsonData('/v1/movie/get-movies', true, query);
     final searchResponse = DataResponse.fromJson(response);
     resultSearch = [...searchResponse.data.movies];
-    Future.delayed(const Duration(milliseconds: 1000));
-    return searchResponse.data;
+    return resultSearch;
   }
 
   getAllMovies() async {
@@ -81,7 +80,7 @@ class MoviesProvider extends ChangeNotifier {
     debouncer.onValue = (value) async {
       final results = await searchMovies(value);
 
-      _moviesByFilterStream.add(results.movies);
+      _moviesByFilterStream.add(results);
     };
     final timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
       debouncer.value = searchTerm;

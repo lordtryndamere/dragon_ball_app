@@ -105,7 +105,7 @@ class _SearchItem extends StatelessWidget {
       ),
       subtitle: Text(movie.categoryName),
       onTap: () =>
-          Navigator.pushNamed(context, 'list-characters', arguments: movie),
+          Navigator.pushNamed(context, 'movies-detail', arguments: movie),
     );
   }
 }
