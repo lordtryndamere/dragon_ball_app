@@ -28,6 +28,10 @@ class MoviesScreen extends StatelessWidget {
           child: CustomScrollView(slivers: [
             if (!isTab)
               SliverAppBar(
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios),
+                  onPressed: () => Navigator.pushNamed(context, 'home'),
+                ),
                 actions: [
                   IconButton(
                       onPressed: () => showSearch(

@@ -6,3 +6,4 @@ export 'package:dragon_ball_app/screens/films_screen.dart';
 export 'package:dragon_ball_app/screens/manga_screen.dart';
 export 'package:dragon_ball_app/screens/menu_view.dart';
 export 'package:dragon_ball_app/screens/details_film_screen.dart';
+export 'package:dragon_ball_app/screens/video_screen.dart';
