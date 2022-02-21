@@ -45,7 +45,7 @@ class MoviesScreen extends StatelessWidget {
             SliverList(
                 delegate: SliverChildListDelegate([
               SizedBox(
-                height: size.height * 0.9,
+                height: size.height * 0.9 + 50,
                 width: double.infinity,
                 child: Column(
                   children: <Widget>[
@@ -53,7 +53,7 @@ class MoviesScreen extends StatelessWidget {
                       movies: moviesProvider.initalMovies,
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 5,
                     ),
                     Expanded(
                       child: ListView.builder(
@@ -92,13 +92,13 @@ class _MovieSlider extends StatelessWidget {
       // siempre a mi container main ponerle width infinito
       margin: const EdgeInsets.symmetric(horizontal: 2),
       width: double.infinity,
-      height: size.height * 0.3 - 18,
+      height: size.height * 0.4,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
             Image(
                 image: const AssetImage('assets/icon_ball.png'),
-                height: size.height * 0.1 - 62),
+                height: size.height * 0.1 - 50),
             const SizedBox(width: 15),
             Text(category.name,
                 style: TextStyle(
@@ -106,7 +106,7 @@ class _MovieSlider extends StatelessWidget {
                     //  background: Paint()..color = Colors.orange[900]!,
                     color: Colors.white,
                     fontWeight: FontWeight.w900,
-                    fontSize: size.height * 0.1 - 63)),
+                    fontSize: size.width * 0.1 - 20)),
           ],
         ),
         const SizedBox(
@@ -122,7 +122,7 @@ class _MovieSlider extends StatelessWidget {
             final movies = snapshot.data!;
             return SizedBox(
               width: double.infinity,
-              height: size.height * 0.2 + 30,
+              height: size.height * 0.3 + 25,
               child: movies.isNotEmpty
                   ? ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -164,7 +164,7 @@ class _CustomMoviePoster extends StatelessWidget {
             child: FadeInImage(
               image: NetworkImage(movie.posterImg),
               placeholder: const AssetImage('assets/loading.gif'),
-              width: size.width * 0.3,
+              width: size.width * 0.3 + 30,
               fit: BoxFit.cover,
             ),
           ),

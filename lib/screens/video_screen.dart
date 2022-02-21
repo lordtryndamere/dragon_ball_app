@@ -21,8 +21,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
     _betterPlayerController = BetterPlayerController(
         const BetterPlayerConfiguration(
+            fit: BoxFit.cover,
             autoPlay: true,
-            fullScreenByDefault: true,
+            fullScreenByDefault: false,
             controlsConfiguration: BetterPlayerControlsConfiguration()),
         betterPlayerDataSource: betterPlayerDataSource);
   }

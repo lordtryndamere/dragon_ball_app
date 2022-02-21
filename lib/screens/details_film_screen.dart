@@ -70,7 +70,7 @@ class DetailsFilmsScreen extends StatelessWidget {
                       ),
                       _OverView(movie: movie),
                       const SizedBox(
-                        height: 15,
+                        height: 13,
                       ),
                       _MovieSlider(category: movie.categoryId),
                       const SizedBox(
@@ -189,7 +189,7 @@ class FittedText extends StatelessWidget {
       child: Text(
         movie.name,
         style: TextStyle(
-            fontSize: size.height * 0.1 - 55,
+            fontSize: size.width * 0.1 - 15,
             fontWeight: FontWeight.w800,
             color: Colors.white),
         textAlign: TextAlign.center, // centrar texto en contenido
@@ -214,7 +214,7 @@ class _MovieSlider extends StatelessWidget {
       // siempre a mi container main ponerle width infinito
       margin: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
-      height: size.height * 0.3 - 18,
+      height: size.height * 0.3 - 16,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
@@ -232,7 +232,7 @@ class _MovieSlider extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 8,
+          height: 6,
         ),
         FutureBuilder(
           builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
