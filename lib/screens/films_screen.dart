@@ -101,7 +101,7 @@ class _MovieSlider extends StatelessWidget {
       // siempre a mi container main ponerle width infinito
       margin: const EdgeInsets.symmetric(horizontal: 15),
       width: double.infinity,
-      height: 37.h,
+      height: 38.8.h,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
