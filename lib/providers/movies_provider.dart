@@ -37,7 +37,6 @@ class MoviesProvider extends ChangeNotifier {
     final urlResponse = isSearch
         ? Uri.https(_baseUrl, endPoint)
         : Uri.https(_baseUrl, '$endPoint/$categoryId');
-    print(urlResponse);
     final token = await storage.read(key: 'AccessToken');
 
     final response = isSearch
