@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:sizer/sizer.dart';
 import 'package:dragon_ball_app/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -62,7 +62,7 @@ class MenuSlider extends StatelessWidget {
           children: <Widget>[
             Container(
               width: double.infinity,
-              height: size.height * 0.16,
+              height: 16.5.h,
               color: Colors.orange[100],
               child: Swiper(
                 autoplay: true,

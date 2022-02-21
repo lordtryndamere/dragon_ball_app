@@ -35,7 +35,7 @@ class AppRoute {
         duration: 4500,
         icon: Icons.functions,
         urlImage: 'https://wallpaperaccess.com/full/4545965.png',
-        name: 'About',
+        name: 'Capitulos',
         screen: const AboutScreen()),
   ];
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {

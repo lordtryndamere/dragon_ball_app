@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dragon_ball_app/models/categories.dart';
 import 'package:dragon_ball_app/models/movie.dart';
 import 'package:dragon_ball_app/providers/category_provider.dart';
@@ -8,6 +9,7 @@ import 'package:dragon_ball_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class MoviesScreen extends StatelessWidget {
   const MoviesScreen({Key? key, this.isTab = false}) : super(key: key);
@@ -28,15 +30,22 @@ class MoviesScreen extends StatelessWidget {
           child: CustomScrollView(slivers: [
             if (!isTab)
               SliverAppBar(
+                toolbarHeight: 6.8.h,
                 leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    size: 2.5.h,
+                  ),
                   onPressed: () => Navigator.pushNamed(context, 'home'),
                 ),
                 actions: [
                   IconButton(
                       onPressed: () => showSearch(
                           context: context, delegate: MovieSearchDelegate()),
-                      icon: const Icon(Icons.search_outlined)),
+                      icon: Padding(
+                        padding: EdgeInsets.only(right: 3.w),
+                        child: Icon(Icons.search_outlined, size: 3.5.h),
+                      )),
                 ],
                 pinned: false,
                 floating: false,
@@ -45,7 +54,7 @@ class MoviesScreen extends StatelessWidget {
             SliverList(
                 delegate: SliverChildListDelegate([
               SizedBox(
-                height: size.height * 0.9 + 50,
+                height: size.height * 0.9,
                 width: double.infinity,
                 child: Column(
                   children: <Widget>[
@@ -90,49 +99,63 @@ class _MovieSlider extends StatelessWidget {
     // moviesProvider.getMoviesByCategory(category.id);
     return Container(
       // siempre a mi container main ponerle width infinito
-      margin: const EdgeInsets.symmetric(horizontal: 2),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       width: double.infinity,
-      height: size.height * 0.4,
+      height: 37.h,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
-            Image(
-                image: const AssetImage('assets/icon_ball.png'),
-                height: size.height * 0.1 - 50),
-            const SizedBox(width: 15),
-            Text(category.name,
+            Expanded(
+                child: FadeIn(
+              delay: const Duration(milliseconds: 500),
+              child: AutoSizeText(
+                category.name,
                 style: TextStyle(
-                    //backgroundColor: Colors.white,
-                    //  background: Paint()..color = Colors.orange[900]!,
+                    shadows: const [
+                      BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 15,
+                          offset: Offset(0, 4))
+                    ],
+                    fontSize: 14.sp,
                     color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: size.width * 0.1 - 20)),
+                    fontWeight: FontWeight.w900),
+                maxLines: 2,
+              ),
+            ))
           ],
         ),
         const SizedBox(
-          height: 8,
+          height: 15,
         ),
         FutureBuilder(
           builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
             if (!snapshot.hasData) {
               return const Center(
-                child: CircularProgressIndicator.adaptive(),
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: Colors.white,
+                ),
               );
             }
             final movies = snapshot.data!;
-            return SizedBox(
-              width: double.infinity,
-              height: size.height * 0.3 + 25,
-              child: movies.isNotEmpty
-                  ? ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => FadeIn(
-                          delay: const Duration(milliseconds: 150 * 1),
-                          child: _CustomMoviePoster(movie: movies[index])),
-                      itemCount: movies.length)
-                  : const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 31.h,
+                  child: movies.isNotEmpty
+                      ? ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => FadeIn(
+                              delay: const Duration(milliseconds: 150 * 1),
+                              child: _CustomMoviePoster(movie: movies[index])),
+                          itemCount: movies.length)
+                      : const Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        ),
+                ),
+              ],
             );
           },
           future: moviesProvider.findByCategory(category.id),
@@ -188,7 +211,10 @@ class _CustomMovieSwiper extends StatelessWidget {
       return SizedBox(
         width: double.infinity,
         height: size.height * 0.5,
-        child: const Center(child: CircularProgressIndicator.adaptive()),
+        child: const Center(
+            child: CircularProgressIndicator.adaptive(
+          backgroundColor: Colors.white,
+        )),
       );
     }
     return Container(

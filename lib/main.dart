@@ -6,6 +6,8 @@ import 'package:dragon_ball_app/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:sizer/sizer.dart';
+
 void main() {
   runApp(const AppState());
 }
@@ -37,13 +39,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Dragon Ball App',
-      initialRoute: AppRoute.initalRoute,
-      routes: AppRoute.getAppRoutes(),
-      theme: AppTheme.lighTheme,
-      onGenerateRoute: (settings) => AppRoute.onGenerateRoute(settings),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Dragon Ball App',
+          initialRoute: AppRoute.initalRoute,
+          routes: AppRoute.getAppRoutes(),
+          theme: AppTheme.lighTheme,
+          onGenerateRoute: (settings) => AppRoute.onGenerateRoute(settings),
+        );
+      },
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dragon_ball_app/providers/movies_provider.dart';
 import 'package:dragon_ball_app/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/models.dart';
+import 'package:sizer/sizer.dart';
 
 class DetailsFilmsScreen extends StatelessWidget {
   const DetailsFilmsScreen({Key? key}) : super(key: key);
@@ -53,10 +55,10 @@ class DetailsFilmsScreen extends StatelessWidget {
                           child: Container(
                             width: double.infinity,
                             color: Colors.white,
-                            child: const Icon(
+                            child: Icon(
                               Icons.play_arrow,
                               color: Colors.black,
-                              size: 30,
+                              size: 4.h,
                             ),
                           ),
                         ),
@@ -99,14 +101,26 @@ class _OverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      padding: const EdgeInsets.only(left: 20, top: 32, right: 20),
-      child: Text(
-        movie.sinopsis,
-        textAlign: TextAlign.justify,
-        style: const TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-      ),
+    return Row(
+      children: [
+        Expanded(
+            child: Padding(
+          padding:
+              EdgeInsets.only(left: 5.h, right: 5.h, bottom: 2.h, top: 3.h),
+          child: AutoSizeText(
+            movie.sinopsis,
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+                shadows: const [
+                  BoxShadow(
+                      color: Colors.black, blurRadius: 15, offset: Offset(0, 4))
+                ],
+                fontSize: 10.5.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.w900),
+          ),
+        ))
+      ],
     );
   }
 }
@@ -122,7 +136,10 @@ class _CustomAppBar extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          size: 3.h,
+        ),
         onPressed: () => Navigator.pushNamed(context, 'movies'),
       ),
       expandedHeight: size.height * 0.3,
@@ -182,18 +199,26 @@ class FittedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(
-          bottom: 10, left: 20, right: 20, top: 10), // centrar contenido
-      width: double.infinity,
-      child: Text(
-        movie.name,
-        style: TextStyle(
-            fontSize: size.width * 0.1 - 15,
-            fontWeight: FontWeight.w800,
-            color: Colors.white),
-        textAlign: TextAlign.center, // centrar texto en contenido
-      ),
+    return Row(
+      children: [
+        Expanded(
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AutoSizeText(
+            movie.name,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                shadows: const [
+                  BoxShadow(
+                      color: Colors.black, blurRadius: 15, offset: Offset(0, 4))
+                ],
+                fontSize: 15.5.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.w900),
+            maxLines: 2,
+          ),
+        ))
+      ],
     );
   }
 }
@@ -214,21 +239,22 @@ class _MovieSlider extends StatelessWidget {
       // siempre a mi container main ponerle width infinito
       margin: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
-      height: size.height * 0.3 - 16,
+      height: 33.h,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
-            Image(
-                image: const AssetImage('assets/icon_ball.png'),
-                height: size.height * 0.1 - 62),
-            const SizedBox(width: 15),
-            Text('Similares en esta categoria..',
+            Expanded(
+                child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 2.h),
+              child: AutoSizeText(
+                'Similares en esta categoria :',
                 style: TextStyle(
-                    //backgroundColor: Colors.white,
-                    //  background: Paint()..color = Colors.orange[900]!,
+                    fontSize: 13.sp,
                     color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: size.width * 0.1 - 20)),
+                    fontWeight: FontWeight.w900),
+                maxLines: 2,
+              ),
+            )),
           ],
         ),
         const SizedBox(
@@ -238,22 +264,29 @@ class _MovieSlider extends StatelessWidget {
           builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
             if (!snapshot.hasData) {
               return const Center(
-                child: CircularProgressIndicator.adaptive(),
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: Colors.white,
+                ),
               );
             }
             final movies = snapshot.data!;
             return SizedBox(
               width: double.infinity,
-              height: size.height * 0.2 + 25,
+              height: 27.h,
               child: movies.isNotEmpty
                   ? ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => FadeIn(
                           delay: const Duration(milliseconds: 150),
-                          child: _CustomMoviePoster(movie: movies[index])),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 5.w, top: 1.5.h),
+                            child: _CustomMoviePoster(movie: movies[index]),
+                          )),
                       itemCount: movies.length)
                   : const Center(
-                      child: CircularProgressIndicator.adaptive(),
+                      child: CircularProgressIndicator.adaptive(
+                        backgroundColor: Colors.white,
+                      ),
                     ),
             );
           },
@@ -272,14 +305,13 @@ class _CustomMoviePoster extends StatelessWidget {
   final Movie movie;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final date = DateTime.now().millisecond.ceilToDouble();
     movie.heroId = 'movie-slider-detail-$date-${movie.name}';
     return GestureDetector(
       onTap: () =>
           Navigator.pushNamed(context, 'movies-detail', arguments: movie),
       child: Container(
-        margin: const EdgeInsets.only(right: 10, bottom: 10),
+        margin: EdgeInsets.only(bottom: 0.1.h),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Hero(
@@ -287,8 +319,8 @@ class _CustomMoviePoster extends StatelessWidget {
             child: FadeInImage(
               image: NetworkImage(movie.posterImg),
               placeholder: const AssetImage('assets/loading.gif'),
-              width: size.width * 0.3 - 20,
-              fit: BoxFit.cover,
+              width: 32.w,
+              fit: BoxFit.fill,
             ),
           ),
         ),
