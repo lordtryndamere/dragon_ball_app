@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class CustomLayoutAppBar extends StatelessWidget {
   const CustomLayoutAppBar({
@@ -14,7 +15,7 @@ class CustomLayoutAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image(
-            height: size.width * 0.1,
+            height: 7.5.h,
             fit: BoxFit.contain,
             image: AssetImage('assets/logo_dragon_ball.png'),
           ),
