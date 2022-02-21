@@ -33,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 3,
       child: SafeArea(
@@ -55,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 Icons.book_outlined
               ],
               tabSize: 4.h,
-              tabBarHeight: 4.5.h,
+              tabBarHeight: 5.h,
               textStyle: TextStyle(
                 fontSize: 8.5.sp,
                 color: Colors.yellow,

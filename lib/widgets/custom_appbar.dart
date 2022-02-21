@@ -15,7 +15,7 @@ class CustomLayoutAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image(
-            height: 6.2.h,
+            height: 6.h,
             fit: BoxFit.contain,
             image: AssetImage('assets/logo_dragon_ball.png'),
           ),
