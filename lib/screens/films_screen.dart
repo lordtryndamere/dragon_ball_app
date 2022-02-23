@@ -94,7 +94,6 @@ class _MovieSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final moviesProvider = Provider.of<MoviesProvider>(context);
     // moviesProvider.getMoviesByCategory(category.id);
     return Container(

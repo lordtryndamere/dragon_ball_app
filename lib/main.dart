@@ -24,11 +24,11 @@ class AppState extends StatelessWidget {
       ),
       ChangeNotifierProvider(
         create: (_) => CategoryProvider(),
-        lazy: false,
+        lazy: true,
       ),
       ChangeNotifierProvider(
         create: (_) => MoviesProvider(),
-        lazy: false,
+        lazy: true,
       ),
     ]);
   }
