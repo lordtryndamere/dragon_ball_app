@@ -18,7 +18,6 @@ class MoviesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final moviesProvider = Provider.of<MoviesProvider>(context);
     final categoryProvider = Provider.of<CategoryProvider>(context);
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.orange[100],
       body: SafeArea(
@@ -53,28 +52,33 @@ class MoviesScreen extends StatelessWidget {
               ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              SizedBox(
-                height: size.height * 0.9,
-                width: double.infinity,
-                child: Column(
-                  children: <Widget>[
-                    _CustomMovieSwiper(
-                      movies: moviesProvider.initalMovies,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, index) => _MovieSlider(
-                            category: categoryProvider.categories[index]),
-                        itemCount: categoryProvider.categories.length,
+              Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  height: 170.h,
+                  width: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      _CustomMovieSwiper(
+                        movies: moviesProvider.initalMovies,
                       ),
-                    ),
-                    SizedBox(
-                      height: isTab ? 50 : 25,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          physics:
+                              const NeverScrollableScrollPhysics(), //disable scroll
+                          itemBuilder: (context, index) => _MovieSlider(
+                              category: categoryProvider.categories[index]),
+                          itemCount: categoryProvider.categories.length,
+                        ),
+                      ),
+                      SizedBox(
+                        height: isTab ? 50 : 25,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ]))
