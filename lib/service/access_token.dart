@@ -11,15 +11,15 @@ class AccessToken extends ChangeNotifier {
     getAccessToken();
   }
   Future getAccessToken() async {
-    final url = Uri.https(_baseUrl, '/v1/users/generate-access-token');
-    final response = await http.get(url);
-    final Map<String, dynamic> token = json.decode(response.body);
-    if (token['code'] == 100) {
-      await storage.write(
-          key: 'AccessToken', value: token['data']['accessToken']);
-      return token['data']['accessToken'];
-    } else {
-      return token['message'];
-    }
+    // final url = Uri.https(_baseUrl, '/v1/users/generate-access-token');
+    // final response = await http.get(url);
+    // final Map<String, dynamic> token = json.decode(response.body);
+    // if (token['code'] == 100) {
+    //   await storage.write(
+    //       key: 'AccessToken', value: token['data']['accessToken']);
+    //   return token['data']['accessToken'];
+    // } else {
+    //   return token['message'];
+    // }
   }
 }
