@@ -18,10 +18,10 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(child: const MyApp(), providers: [
-      // ChangeNotifierProvider(
-      //   create: (_) => AccessToken(),
-      //   lazy: false,
-      // ),
+      ChangeNotifierProvider(
+        create: (_) => AccessToken(),
+        lazy: false,
+      ),
       ChangeNotifierProvider(
         create: (_) => CategoryProvider(),
         lazy: true,

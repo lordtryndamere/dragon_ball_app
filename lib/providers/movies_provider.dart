@@ -5,11 +5,11 @@ import 'package:dragon_ball_app/models/models.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:async';
-//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class MoviesProvider extends ChangeNotifier {
-  // final storage = const FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   MoviesProvider() {
     getAllMovies();
@@ -37,14 +37,15 @@ class MoviesProvider extends ChangeNotifier {
     final urlResponse = isSearch
         ? Uri.https(_baseUrl, endPoint)
         : Uri.https(_baseUrl, '$endPoint/$categoryId');
-    //  final token = await storage.read(key: 'AccessToken');
+    final token = await storage.read(key: 'AccessToken');
 
     final response = isSearch
-        ? await http
-            .post(urlResponse, body: json.encode({'filter': filter}), headers: {
-            // 'x-DBP-Access-Token': token!,
-            'Content-Type': 'application/json'
-          })
+        ? await http.post(urlResponse,
+            body: json.encode({'filter': filter}),
+            headers: {
+                'x-DBP-Access-Token': token!,
+                'Content-Type': 'application/json'
+              })
         : await http.get(urlResponse);
     return response.body;
   }
