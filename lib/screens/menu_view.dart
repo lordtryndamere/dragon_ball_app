@@ -67,7 +67,7 @@ class MenuSlider extends StatelessWidget {
               child: Swiper(
                 autoplay: true,
                 autoplayDelay: random.nextInt(duration) + 2000,
-                autoplayDisableOnInteraction: true,
+                autoplayDisableOnInteraction: false,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(left: 5, right: 5),
@@ -77,7 +77,7 @@ class MenuSlider extends StatelessWidget {
                         child: Opacity(
                           opacity: 1,
                           child: FadeInImage(
-                            image: NetworkImage(urlImage),
+                            image: AssetImage(urlImage),
                             placeholder: const AssetImage('assets/loading.gif'),
                             fit: BoxFit.cover,
                           ),
