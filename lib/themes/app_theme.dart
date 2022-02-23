@@ -34,5 +34,7 @@ class AppTheme {
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 topRight: Radius.circular(10))),
-      ));
+      ),
+      colorScheme: ColorScheme.fromSwatch()
+          .copyWith(secondary: Colors.orange[100]!.withOpacity(0.0)));
 }

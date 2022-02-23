@@ -65,6 +65,7 @@ class MoviesProvider extends ChangeNotifier {
     final allMoviesResponse = DataResponse.fromJson(response);
     initalMovies = allMoviesResponse.data.movies;
     notifyListeners();
+    return initalMovies;
   }
 
   Future<List<Movie>> findByCategory(String categoryId) async {

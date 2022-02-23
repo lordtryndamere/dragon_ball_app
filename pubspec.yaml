@@ -46,6 +46,9 @@ dependencies:
   wakelock_web: ^0.4.0
   auto_size_text: ^3.0.0
   sizer: ^2.0.15
+  pull_to_refresh: ^2.0.0
+
+
   
 
 dev_dependencies:
