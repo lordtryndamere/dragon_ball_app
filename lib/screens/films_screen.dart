@@ -1,63 +1,23 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:card_swiper/card_swiper.dart';
-import 'package:dragon_ball_app/themes/app_theme.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import 'package:sizer/sizer.dart';
-
 import 'package:dragon_ball_app/models/categories.dart';
 import 'package:dragon_ball_app/models/movie.dart';
 import 'package:dragon_ball_app/providers/category_provider.dart';
 import 'package:dragon_ball_app/providers/movies_provider.dart';
 import 'package:dragon_ball_app/search/search_delegate.dart';
 import 'package:dragon_ball_app/widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:card_swiper/card_swiper.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
-class MoviesScreen extends StatefulWidget {
+class MoviesScreen extends StatelessWidget {
   const MoviesScreen({Key? key, this.isTab = false}) : super(key: key);
   final bool isTab;
-
-  @override
-  State<MoviesScreen> createState() => _MoviesScreenState();
-}
-
-class _MoviesScreenState extends State<MoviesScreen> {
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-  List getCategories = <CategoryElement>[];
-  List<Movie> getMovies = [];
-
   @override
   Widget build(BuildContext context) {
     final moviesProvider = Provider.of<MoviesProvider>(context);
     final categoryProvider = Provider.of<CategoryProvider>(context);
-    getCategories = categoryProvider.categories;
-    getMovies = Provider.of<MoviesProvider>(context).initalMovies;
-
-    void _onRefresh() async {
-      getCategories.clear();
-      getMovies.clear();
-      await Future.delayed(const Duration(milliseconds: 500));
-      await moviesProvider.getAllMovies();
-      await categoryProvider.getCategories();
-      getCategories = categoryProvider.categories;
-      getMovies = moviesProvider.initalMovies;
-      setState(() {});
-      _refreshController.refreshCompleted();
-    }
-
-    void _onLoading() async {
-      await Future.delayed(const Duration(milliseconds: 1000));
-      await moviesProvider.getAllMovies();
-      await categoryProvider.getCategories();
-      if (mounted) {
-        setState(() {});
-      }
-      _refreshController.loadComplete();
-    }
-
     return Scaffold(
       backgroundColor: Colors.orange[100],
       body: SafeArea(
@@ -67,7 +27,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
           width: double.infinity,
           height: double.infinity,
           child: CustomScrollView(slivers: [
-            if (!widget.isTab)
+            if (!isTab)
               SliverAppBar(
                 toolbarHeight: 6.8.h,
                 leading: IconButton(
@@ -92,44 +52,33 @@ class _MoviesScreenState extends State<MoviesScreen> {
               ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              SizedBox(
-                width: double.infinity,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 92.h,
-                      width: double.infinity,
-                      child: SmartRefresher(
-                        controller: _refreshController,
-                        onLoading: _onLoading,
-                        onRefresh: _onRefresh,
-                        header: WaterDropMaterialHeader(
-                            backgroundColor: AppTheme.primary),
-                        child: ListView(
-                          physics: const ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            Column(
-                              children: [
-                                _CustomMovieSwiper(
-                                  movies: getMovies,
-                                ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics:
-                                      const NeverScrollableScrollPhysics(), //disable scroll
-                                  itemBuilder: (context, index) => _MovieSlider(
-                                      category: getCategories[index]),
-                                  itemCount: getCategories.length,
-                                ),
-                              ],
-                            ),
-                          ],
+              Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  height: 170.h,
+                  width: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      _CustomMovieSwiper(
+                        movies: moviesProvider.initalMovies,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          physics:
+                              const NeverScrollableScrollPhysics(), //disable scroll
+                          itemBuilder: (context, index) => _MovieSlider(
+                              category: categoryProvider.categories[index]),
+                          itemCount: categoryProvider.categories.length,
                         ),
                       ),
-                    )
-                  ],
+                      SizedBox(
+                        height: isTab ? 50 : 25,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ]))
@@ -153,7 +102,7 @@ class _MovieSlider extends StatelessWidget {
     // moviesProvider.getMoviesByCategory(category.id);
     return Container(
       // siempre a mi container main ponerle width infinito
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       width: double.infinity,
       height: 38.8.h,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -179,8 +128,8 @@ class _MovieSlider extends StatelessWidget {
             ))
           ],
         ),
-        SizedBox(
-          height: 2.5.h,
+        const SizedBox(
+          height: 15,
         ),
         FutureBuilder(
           builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
@@ -241,7 +190,7 @@ class _CustomMoviePoster extends StatelessWidget {
             child: FadeInImage(
               image: NetworkImage(movie.posterImg),
               placeholder: const AssetImage('assets/loading.gif'),
-              width: 32.w,
+              width: size.width * 0.3 + 30,
               fit: BoxFit.cover,
             ),
           ),

@@ -9,7 +9,7 @@ class AppRoute {
     MenuOption(
         route: 'list-characters',
         icon: Icons.list_alt,
-        duration: 4000,
+        duration: 5100,
         name: 'Personajes',
         urlImage: 'assets/personajes.jpg',
         screen: const CharacterListScreen()),
@@ -24,12 +24,12 @@ class AppRoute {
         route: 'manga',
         icon: Icons.umbrella_sharp,
         name: 'Mangas',
-        duration: 4000,
+        duration: 5200,
         urlImage: 'assets/mangas.jpeg',
         screen: const MangaScreen()),
     MenuOption(
         route: 'about',
-        duration: 4500,
+        duration: 6000,
         icon: Icons.functions,
         urlImage: 'assets/kamehouse.png',
         name: 'Capitulos',

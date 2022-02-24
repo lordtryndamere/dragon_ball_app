@@ -65,8 +65,11 @@ class MenuSlider extends StatelessWidget {
               height: 16.5.h,
               color: Colors.orange[100],
               child: Swiper(
+                fade: 0.2,
+                duration: 1500,
                 autoplay: true,
-                autoplayDelay: random.nextInt(duration) + 2000,
+                physics: const NeverScrollableScrollPhysics(),
+                autoplayDelay: random.nextInt(duration) + 4000,
                 autoplayDisableOnInteraction: false,
                 itemBuilder: (context, index) {
                   return Padding(
