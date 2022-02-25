@@ -30,7 +30,7 @@ class MovieSearchDelegate extends SearchDelegate {
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
     final movies = moviesProvider.resultSearch;
     if (movies.isEmpty) {
-      return _emptyContainer();
+      return _emptyContainerResults();
     }
     return ListView.builder(
       itemBuilder: (context, index) => _SearchItem(movie: movies[index]),
@@ -49,6 +49,23 @@ class MovieSearchDelegate extends SearchDelegate {
               width: 160,
               height: 160,
               image: AssetImage('assets/iconZ.png'),
+              fit: BoxFit.contain,
+            )),
+      ),
+    );
+  }
+
+  Widget _emptyContainerResults() {
+    return const SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: Center(
+        child: Opacity(
+            opacity: 0.6,
+            child: Image(
+              width: 160,
+              height: 160,
+              image: AssetImage('assets/notresults.png'),
               fit: BoxFit.contain,
             )),
       ),
@@ -74,7 +91,7 @@ class MovieSearchDelegate extends SearchDelegate {
                   itemBuilder: (context, index) =>
                       _SearchItem(movie: movies[index]),
                   itemCount: movies.length)
-              : _emptyContainer(),
+              : _emptyContainerResults(),
         );
       },
       stream: moviesProvider.byFilterStream,

@@ -5,6 +5,7 @@ import 'package:dragon_ball_app/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:skeletor/skeletor.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -38,7 +39,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
 
     void _onRefresh() async {
       getCategories.clear();
-      getMovies.clear();
+      //getMovies.clear();
       await Future.delayed(const Duration(milliseconds: 500));
       await moviesProvider.getAllMovies();
       await categoryProvider.getCategories();
@@ -92,44 +93,48 @@ class _MoviesScreenState extends State<MoviesScreen> {
               ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              SizedBox(
-                width: double.infinity,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 92.h,
-                      width: double.infinity,
-                      child: SmartRefresher(
-                        controller: _refreshController,
-                        onLoading: _onLoading,
-                        onRefresh: _onRefresh,
-                        header: WaterDropMaterialHeader(
-                            backgroundColor: AppTheme.primary),
-                        child: ListView(
-                          physics: const ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            Column(
-                              children: [
-                                _CustomMovieSwiper(
-                                  movies: getMovies,
-                                ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics:
-                                      const NeverScrollableScrollPhysics(), //disable scroll
-                                  itemBuilder: (context, index) => _MovieSlider(
-                                      category: getCategories[index]),
-                                  itemCount: getCategories.length,
-                                ),
-                              ],
-                            ),
-                          ],
+              Skeleton(
+                isShown: getCategories.isEmpty ? true : false,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 92.h,
+                        width: double.infinity,
+                        child: SmartRefresher(
+                          controller: _refreshController,
+                          onLoading: _onLoading,
+                          onRefresh: _onRefresh,
+                          header: WaterDropMaterialHeader(
+                              backgroundColor: AppTheme.primary),
+                          child: ListView(
+                            physics: const ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              Column(
+                                children: [
+                                  _CustomMovieSwiper(
+                                    movies: getMovies,
+                                  ),
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(), //disable scroll
+                                    itemBuilder: (context, index) =>
+                                        _MovieSlider(
+                                            category: getCategories[index]),
+                                    itemCount: getCategories.length,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ]))
@@ -262,19 +267,28 @@ class _CustomMovieSwiper extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     if (movies.isEmpty) {
-      return SizedBox(
-        width: double.infinity,
-        height: size.height * 0.5,
-        child: const Center(
-            child: CircularProgressIndicator.adaptive(
-          backgroundColor: Colors.white,
-        )),
+      return Padding(
+        padding: EdgeInsets.only(top: 2.h),
+        child: Bone(
+          width: 93.w,
+          height: 40.h,
+          baseColor: Colors.orange[200]!,
+          child: SizedBox(
+            width: double.infinity,
+            height: size.height * 0.5,
+            child: const Center(
+                child: CircularProgressIndicator.adaptive(
+              backgroundColor: Colors.white,
+            )),
+          ),
+        ),
       );
     }
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: Swiper(
-        fade: 2,
+        fade: 0.3,
+        duration: 800,
         autoplay: true,
         autoplayDelay: 4000,
         autoplayDisableOnInteraction: true,

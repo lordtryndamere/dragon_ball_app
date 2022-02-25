@@ -15,7 +15,6 @@ class AccessToken extends ChangeNotifier {
     final response = await http.get(url);
     final Map<String, dynamic> token = json.decode(response.body);
     if (token['code'] == 100) {
-      print(token['code']);
       await storage.write(
           key: 'AccessToken', value: token['data']['accessToken']);
       return token['data']['accessToken'];
