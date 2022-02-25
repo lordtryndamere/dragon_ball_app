@@ -53,8 +53,7 @@ class MenuSlider extends StatelessWidget {
     final random = Random();
 
     return GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, route, arguments: 'movie-screen'),
+      onTap: () => Navigator.pushNamed(context, route),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 2, top: 20, left: 5, right: 5),
         child: Stack(
