@@ -13,7 +13,6 @@ class MoviesProvider extends ChangeNotifier {
 
   MoviesProvider() {
     getAllMovies();
-    print('se inicio el prover de peliculas');
   }
   final String _baseUrl = 'dbz-app-backend.herokuapp.com';
   final Debouncer debouncer =
@@ -34,7 +33,7 @@ class MoviesProvider extends ChangeNotifier {
   Stream<List<Movie>> get byFilterStream => _moviesByFilterStream.stream;
 
   Future _getJsonData(String endPoint, bool isSearch,
-      [String filter = "", String categoryId = " ", accessToken]) async {
+      [String filter = "", String categoryId = " "]) async {
     final urlResponse = isSearch
         ? Uri.https(_baseUrl, endPoint)
         : Uri.https(_baseUrl, '$endPoint/$categoryId');
@@ -44,7 +43,7 @@ class MoviesProvider extends ChangeNotifier {
         ? await http.post(urlResponse,
             body: json.encode({'filter': filter}),
             headers: {
-                'x-DBP-Access-Token': token ?? accessToken,
+                'x-DBP-Access-Token': token!,
                 'Content-Type': 'application/json'
               })
         : await http.get(urlResponse);
@@ -58,21 +57,20 @@ class MoviesProvider extends ChangeNotifier {
     return resultSearch;
   }
 
-  getAllMovies([accessToken]) async {
+  getAllMovies() async {
     if (initalMovies.isNotEmpty) {
       initalMovies = [...initalMovies];
     }
-    final response =
-        await _getJsonData('/v1/movie/get-movies', true, "", accessToken);
+    final response = await _getJsonData('/v1/movie/get-movies', true, "");
     final allMoviesResponse = DataResponse.fromJson(response);
     initalMovies = allMoviesResponse.data.movies;
     notifyListeners();
     return initalMovies;
   }
 
-  Future<List<Movie>> findByCategory(String categoryId, [accessToken]) async {
-    final response = await _getJsonData(
-        '/v1/movie/get-by-category', false, "", categoryId, accessToken);
+  Future<List<Movie>> findByCategory(String categoryId) async {
+    final response =
+        await _getJsonData('/v1/movie/get-by-category', false, "", categoryId);
     final searchResponse = DataResponse.fromJson(response);
     return searchResponse.data.movies;
   }

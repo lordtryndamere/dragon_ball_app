@@ -10,14 +10,13 @@ class CategoryProvider extends ChangeNotifier {
   List<CategoryElement> categories = [];
   CategoryProvider() {
     getCategories();
-    print('se inicio el providder de categories');
   }
 
-  Future getCategories([accessToken]) async {
+  Future getCategories() async {
     final urlResponse = Uri.https(_baseUrl, 'v1/movie/get-categories');
     final token = await storage.read(key: 'AccessToken');
     final response = await http.get(urlResponse, headers: {
-      'x-DBP-Access-Token': token ?? accessToken,
+      'x-DBP-Access-Token': token!,
     });
     final categoriesResponse = Category.fromJson(response.body);
     categories = categoriesResponse.data.categories;
