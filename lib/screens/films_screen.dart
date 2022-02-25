@@ -63,7 +63,7 @@ class MoviesScreen extends StatelessWidget {
                         movies: moviesProvider.initalMovies,
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 4.5,
                       ),
                       Expanded(
                         child: ListView.builder(
