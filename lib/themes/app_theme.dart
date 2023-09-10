@@ -10,14 +10,13 @@ class AppTheme {
         backgroundColor: primary,
         elevation: 2,
       ),
-      backgroundColor: Colors.orange[100],
       textButtonTheme:
-          TextButtonThemeData(style: TextButton.styleFrom(primary: primary)),
+          TextButtonThemeData(style: TextButton.styleFrom(foregroundColor: primary)),
       floatingActionButtonTheme:
           FloatingActionButtonThemeData(backgroundColor: primary),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-              primary: primary, shape: const StadiumBorder(), elevation: 0)),
+              backgroundColor: primary, shape: const StadiumBorder(), elevation: 0)),
       inputDecorationTheme: InputDecorationTheme(
         floatingLabelStyle: TextStyle(color: primary),
         enabledBorder: OutlineInputBorder(
@@ -34,7 +33,6 @@ class AppTheme {
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 topRight: Radius.circular(10))),
-      ),
-      colorScheme: ColorScheme.fromSwatch()
-          .copyWith(secondary: Colors.orange[100]!.withOpacity(0.0)));
+      ), colorScheme: ColorScheme.fromSwatch()
+          .copyWith(secondary: Colors.orange[100]!.withOpacity(0.0)).copyWith(background: Colors.orange[100]));
 }

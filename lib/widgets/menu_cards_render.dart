@@ -23,7 +23,7 @@ class RenderCards extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   child:  Text(AppRoute.menuOptions[1].name),
-                  style: TextButton.styleFrom(primary: Colors.black),
+                  style: TextButton.styleFrom(foregroundColor: Colors.black),
                 ),
               ],
             ),
@@ -38,7 +38,7 @@ class RenderCards extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   child:  Text(AppRoute.menuOptions[0].name),
-                  style: TextButton.styleFrom(primary: Colors.black),
+                  style: TextButton.styleFrom(foregroundColor: Colors.black),
                 )
               ],
             )
@@ -57,7 +57,7 @@ class RenderCards extends StatelessWidget {
                   TextButton(
                     onPressed: () {},
                     child: Text(AppRoute.menuOptions[2].name),
-                    style: TextButton.styleFrom(primary: Colors.black),
+                    style: TextButton.styleFrom(foregroundColor: Colors.black),
                   )
                 ],
               ),
@@ -71,7 +71,7 @@ class RenderCards extends StatelessWidget {
                   TextButton(
                     onPressed: () {},
                     child:  Text(AppRoute.menuOptions[3].name),
-                    style: TextButton.styleFrom(primary: Colors.black),
+                    style: TextButton.styleFrom(foregroundColor: Colors.black),
                   )
                 ],
               )

@@ -10,9 +10,12 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
+
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  WakelockPlus.enable();
   runApp(const AppState());
 }
 
@@ -43,7 +46,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Wakelock.enable();
+
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(

@@ -1,8 +1,6 @@
 import 'package:dragon_ball_app/models/movie.dart';
 import 'package:dragon_ball_app/providers/movies_provider.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MovieSearchDelegate extends SearchDelegate {

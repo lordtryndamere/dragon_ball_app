@@ -66,7 +66,7 @@ class MenuSlider extends StatelessWidget {
               child: Swiper(
                 fade: 0.2,
                 duration: 1500,
-                autoplay: true,
+                autoplay: false,
                 physics: const NeverScrollableScrollPhysics(),
                 autoplayDelay: random.nextInt(duration) + 4000,
                 autoplayDisableOnInteraction: false,
